@@ -1,0 +1,25 @@
+---
+sample_id:
+  type: 'String'
+  required: true
+  help: 'Sample ID'
+output_dir:
+  type: 'Path'
+  mode: 'w'
+  required: true
+  help: 'Absolute path to output directory'
+input:
+  type: 'Namespace'
+  required: true
+  help: 'Input samples'
+  elements:
+    coverage:
+      type: 'CoverageNamespace'
+      required: true
+      help: 'Input coverage for sample'
+      elements:
+        Qualimap:
+          type: 'Path'
+          mode: 'r'
+          required: false
+          help: 'Qualimap genome coverage output path'
