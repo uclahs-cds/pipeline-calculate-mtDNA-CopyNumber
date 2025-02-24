@@ -1,5 +1,5 @@
 /**
-*   Wrapping updater into a class to be able to use it within other classes/scripts
+*   Wrapping calculator into a class to be able to use it within other classes/scripts
 */
 class CopyNumberCalculator {
     /**
