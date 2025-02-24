@@ -39,7 +39,7 @@ class QualimapCoverage implements CoverageHandler {
     }
 
     private void calculate_autosomal_coverage() {
-        double running_average = 1;
+        double running_average = 0;
         Integer count = 0;
         this.autosomal_data.each { chr, chr_data ->
             running_average = AverageUpdater.update_average(running_average, count, chr_data['cov'], chr_data['bases']);
