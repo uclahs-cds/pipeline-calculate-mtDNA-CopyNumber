@@ -51,23 +51,11 @@
                 </li>
               </ul>
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../flow-diagram/">Flow Diagram</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../pipeline-steps/">Pipeline Steps</a>
-                </li>
-              </ul>
-              <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../inputs/">Inputs</a>
                 </li>
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../outputs/">Outputs</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../testing-and-validation/">Testing and Validation</a>
                 </li>
               </ul>
               <ul>
@@ -102,7 +90,7 @@
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">Overview</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/uclahs-cds/pipeline-calculate-mtDNA-CopyNumber/blob/82de56da8a5f123690372930030a9d47246475e0/README.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/uclahs-cds/pipeline-calculate-mtDNA-CopyNumber/blob/6cb1e44725b88893a031b74d6c8ac3919fd26ae4/README.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -111,7 +99,9 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="overview">Overview</h2>
-<p>A 3-4 sentence summary of the pipeline, including the pipeline's purpose, the type of expected scientific inputs/outputs of the pipeline (e.g: FASTQs and BAMs), and a list of tools/steps in the pipeline.</p>
+<p>Calculate-mtDNA-CopyNumber estimates mitochondrial DNA copy number using autosomal and mitochondrial coverages modified by ploidy:</p>
+<p>$$mtDNA\ CopyNumber = \frac{mtDNA\ average\ coverage}{autosomal\ DNA\ average\ coverage} \cdot ploidy$$</p>
+<p>The pipeline takes as input contig-stratified coverage information and calculates the mtDNA copy number for each source of coverage provided.</p>
 <hr />
               
             </div>
