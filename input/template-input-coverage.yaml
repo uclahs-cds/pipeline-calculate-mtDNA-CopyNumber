@@ -1,5 +1,5 @@
 ---
-sample_id: 'patient_id'
+sample_id: 'sample_id'
 input:
   coverage:
     Qualimap: '/path/to/qualimap/coverage'
