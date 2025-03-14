@@ -1,62 +1,39 @@
-# Pipeline Name
+# Calculate-mtDNA-CopyNumber
 
 [![Prepare release](https://img.shields.io/badge/Action-Create%20New%20Release-blue)](https://github.com/uclahs-cds/template-NextflowPipeline/actions/workflows/prepare-release.yaml)
 
-- [Pipeline Name](#pipeline-name)
+- [Calculate-mtDNA-CopyNumber](#calculate-mtdna-copynumber)
   - [Overview](#overview)
   - [How To Run](#how-to-run)
-  - [Flow Diagram](#flow-diagram)
-  - [Pipeline Steps](#pipeline-steps)
-    - [1. Step/Process 1](#1-stepprocess-1)
-    - [2. Step/Process 2](#2-stepprocess-2)
-    - [3. Step/Process n](#3-stepprocess-n)
   - [Inputs](#inputs)
   - [Outputs](#outputs)
-  - [Testing and Validation](#testing-and-validation)
-    - [Test Data Set](#test-data-set)
-    - [Validation <version number\>](#validation-version-number)
-    - [Validation Tool](#validation-tool)
   - [References](#references)
   - [Discussions](#discussions)
   - [Contributors](#contributors)
   - [License](#license) 
+
 ## Overview
 
-A 3-4 sentence summary of the pipeline, including the pipeline's purpose, the type of expected scientific inputs/outputs of the pipeline (e.g: FASTQs and BAMs), and a list of tools/steps in the pipeline.
+Calculate-mtDNA-CopyNumber estimates mitochondrial DNA copy number using autosomal and mitochondrial coverages modified by ploidy:
+
+$$mtDNA\ CopyNumber = \frac{mtDNA\ average\ coverage}{autosomal\ DNA\ average\ coverage} \cdot ploidy$$
+
+The pipeline takes as input contig-stratified coverage information and calculates the mtDNA copy number for each source of coverage provided.
 
 ---
 
 ## How To Run
 
-1. Update the params section of the .config file
+1. Copy and edit the [input config file](./input/template.config)
 
-2. Update the input yaml
+2. Copy and edit the [input YAML](./input/template-input-coverage.yaml)
 
-3. See the submission script, [here](https://github.com/uclahs-cds/tool-submit-nf), to submit your pipeline
+3. The pipeline can be executed locally using the command below:
+```Bash
+nextflow run path/to/main.nf -c path/to/input.config -params-file path/to/input.yaml
+```
 
----
-
-## Flow Diagram
-
-A directed acyclic graph of your pipeline. The [PlantUML](https://plantuml.com/) code defining this diagram is version-controlled in the [docs/](./docs/) folder, and a [GitHub Action](https://github.com/uclahs-cds/tool-PlantUML-action) automatically regenerates the SVG image when that file is changed.
-
-![Pipeline Graph](./docs/pipeline-flow.svg)
-
----
-
-## Pipeline Steps
-
-### 1. Step/Process 1
-
-> A 2-3 sentence description of each step/proccess in your pipeline that includes the purpose of the step/process, the tool(s) being used and their version, and the expected scientific inputs/outputs (e.g: FASTQs and BAMs) of the pipeline.
-
-### 2. Step/Process 2
-
-> A 2-3 sentence description of each step/proccess in your pipeline that includes the purpose of the step/process, the tool(s) being used and their version, and the expected scientific inputs/outputs (e.g: FASTQs and BAMs) of the pipeline.
-
-### 3. Step/Process n
-
-> A 2-3 sentence description of each step/proccess in your pipeline that includes the purpose of the step/process, the tool(s) being used and their version, and the expected scientific inputs/outputs (e.g: FASTQs and BAMs) of the pipeline.
+4. To submit to UCLAHS-CDS infrastructure, use the submission script [here](https://github.com/uclahs-cds/tool-submit-nf)
 
 ---
 
@@ -64,28 +41,19 @@ A directed acyclic graph of your pipeline. The [PlantUML](https://plantuml.com/)
 
 ### Input YAML
 
-> include an example of the organization structure within the YAML. Example:
 ```yaml
-input 1: 'patient_id'
+sample_id: 'sample_id'
 input:
-    normal:
-      - id: <normal id>
-        BAM: </path/to/normal.bam>
-    tumor:
-      - id: <tumor id>
-        BAM: </path/to/tumor.bam>
+  coverage:
+    Qualimap: '/path/to/qualimap/coverage'
 ```
 
 ### Config
 
 | Field | Type | Required | Description |
 | ----- | ---- | ------------ | ------------------------ |
-| param 1 | _type_ | yes/no | 1-2 sentence description of the parameter, including any defaults if any. |
-| param 2 | _type_ | yes/no | 1-2 sentence description of the parameter, including any defaults if any. |
-| param n | _type_ | yes/no | 1-2 sentence description of the parameter, including any defaults if any. |
+| `output_dir` | path | yes | Path to which outputs should be saved. |
 | `work_dir` | path | no | Path of working directory for Nextflow. When included in the sample config file, Nextflow intermediate files and logs will be saved to this directory. With ucla_cds, the default is `/scratch` and should only be changed for testing/development. Changing this directory to `/hot` or `/tmp` can lead to high server latency and potential disk space limitations, respectively. |
-
-> Include the optional param `work_dir` in the inputs accompanied by a warning of the potentials dangers of using the param. Update the warning if necessary.
 
 ---
 
@@ -95,67 +63,37 @@ input:
 
 | Output | Description |
 | ------------ | ------------------------ |
-| ouput 1 | 1 - 2 sentence description of the output. |
-| ouput 2 | 1 - 2 sentence description of the output. |
-| ouput n | 1 - 2 sentence description of the output. |
-
----
-
-## Testing and Validation
-
-### Test Data Set
-
-A 2-3 sentence description of the test data set(s) used to validate and test this pipeline. If possible, include references and links for how to access and use the test dataset
-
-### Validation <version number\>
-
- Input/Output | Description | Result  
- | ------------ | ------------------------ | ------------------------ |
-| metric 1 | 1 - 2 sentence description of the metric | quantifiable result |
-| metric 2 | 1 - 2 sentence description of the metric | quantifiable result |
-| metric n | 1 - 2 sentence description of the metric | quantifiable result |
-
-- [Reference/External Link/Path 1 to any files/plots or other validation results](<link>)
-- [Reference/External Link/Path 2 to any files/plots or other validation results](<link>)
-- [Reference/External Link/Path n to any files/plots or other validation results](<link>)
-
-### Validation Tool
-
-Included is a template for validating your input files. For more information on the tool check out: https://github.com/uclahs-cds/package-PipeVal
+| `mtDNA-copynumbers.txt` | List of calculated mtDNA copy numbers organized by coverage source. |
 
 ---
 
 ## References
 
-1. [Reference 1](<links-to-papers/external-code/documentation/metadata/other-repos/or-anything-else>)
-2. [Reference 2](<links-to-papers/external-code/documentation/metadata/other-repos/or-anything-else>)
-3. [Reference n](<links-to-papers/external-code/documentation/metadata/other-repos/or-anything-else>)
+1. Ding J, Sidore C, Butler TJ, Wing MK, Qian Y, Meirelles O, Busonero F, Tsoi LC, Maschio A, Angius A, Kang HM, Nagaraja R, Cucca F, Abecasis GR, Schlessinger D. Assessing Mitochondrial DNA Variation and Copy Number in Lymphocytes of ~2,000 Sardinians Using Tailored Sequencing Analysis Tools. PLoS Genet. 2015 Jul 14;11(7):e1005306. doi: 10.1371/journal.pgen.1005306. Erratum in: PLoS Genet. 2015 Sep 29;11(9):e1005549. doi: 10.1371/journal.pgen.1005549. PMID: 26172475; PMCID: PMC4501845.
 
 ---
 
 ## Discussions
 
-- [Issue tracker](<link-to-repo-issues-page>) to report errors and enhancement ideas.
-- Discussions can take place in [<pipeline> Discussions](<link-to-repo-discussions-page>)
-- [<pipeline> pull requests](<link-to-repo-pull-requests>) are also open for discussion
+- [Issue tracker](https://github.com/uclahs-cds/pipeline-calculate-mtDNA-CopyNumber/issues) to report errors and enhancement ideas.
+- Discussions can take place in [calculate-mtDNA-CopyNumber Discussions](https://github.com/uclahs-cds/pipeline-calculate-mtDNA-CopyNumber/discussions)
+- [calculate-mtDNA-CopyNumber pull requests](https://github.com/uclahs-cds/pipeline-calculate-mtDNA-CopyNumber/pulls) are also open for discussion
 
 ---
 
 ## Contributors
 
-> Update link to repo-specific URL for GitHub Insights Contributors page.
-
-Please see list of [Contributors](https://github.com/uclahs-cds/template-NextflowPipeline/graphs/contributors) at GitHub.
+Please see list of [Contributors](https://github.com/uclahs-cds/pipeline-calculate-mtDNA-CopyNumber/graphs/contributors) at GitHub.
 
 ---
 
 ## License
 
-[pipeline name] is licensed under the GNU General Public License version 2. See the file LICENSE for the terms of the GNU GPL license.
+pipeline-calculate-mtDNA-CopyNumber is licensed under the GNU General Public License version 2. See the file LICENSE for the terms of the GNU GPL license.
 
-<one line to give the program's name and a brief idea of what it does.>
+pipeline-calculate-mtDNA-CopyNumber calculates the mitochondrial DNA copy number based on coverage.
 
-Copyright (C) 2024 University of California Los Angeles ("Boutros Lab") All rights reserved.
+Copyright (C) 2025 University of California Los Angeles ("Boutros Lab") All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
