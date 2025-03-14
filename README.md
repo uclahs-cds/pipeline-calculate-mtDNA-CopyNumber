@@ -1,6 +1,6 @@
 # Calculate-mtDNA-CopyNumber
 
-[![Prepare release](https://img.shields.io/badge/Action-Create%20New%20Release-blue)](https://github.com/uclahs-cds/template-NextflowPipeline/actions/workflows/prepare-release.yaml)
+[![Prepare release](https://img.shields.io/badge/Action-Create%20New%20Release-blue)](https://github.com/uclahs-cds/pipeline-calculate-mtDNA-CopyNumber/actions/workflows/prepare-release.yaml)
 
 - [Calculate-mtDNA-CopyNumber](#calculate-mtdna-copynumber)
   - [Overview](#overview)
